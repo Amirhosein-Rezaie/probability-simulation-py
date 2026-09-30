@@ -1,5 +1,5 @@
 from msvcrt import getwch
-from tools.func import run_command
+from tools.func import run_command, press_enter_to_continue, splitter_line
 
 
 # the function that show list of tests and user select one of them.
@@ -94,6 +94,29 @@ def list_sub_test(test_number: int) -> int:
     return number
 
 
+# run the function of the event or choice the user
+def perform(test: int, sub_test: int) -> int:
+    "run the function of the event or choice the user"
+
+    # import modules of functions
+    pass
+
+    # list of functions
+    funcs = {
+        1: {1: None, 2: None},
+        2: {1: None, 2: None, 3: None, 4: None},
+        3: {1: None, 2: None, 3: None, 4: None},
+        4: {1: None, 2: None, 3: None, 4: None},
+        5: {1: None},
+    }
+
+    splitter_line()
+
+    funcs[test][sub_test]()
+
+    splitter_line()
+
+
 def main() -> None:
     "the main function of this project."
 
@@ -106,6 +129,10 @@ def main() -> None:
 
         if number_sub_test == 0:
             continue
+
+        perform(number_test, number_sub_test)
+
+        press_enter_to_continue()
 
 
 if __name__ == "__main__":
