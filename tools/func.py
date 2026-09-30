@@ -19,3 +19,10 @@ def press_enter_to_continue() -> None:
 
         if repr(char) == repr("\r"):
             break
+
+
+# function for show a splitter line
+def splitter_line(len_line: int = 60) -> None:
+    "show a splitter line"
+
+    print("-" * len_line)
