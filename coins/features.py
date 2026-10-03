@@ -1,6 +1,7 @@
-from tools.func import total_repeat, select_outcome, count
+from tools.func import total_repeat, select_outcome, count, show_result
 from enum import Enum
 from random import randint
+from numpy import mean, median, var, std
 
 
 class SingleCoin:
@@ -29,6 +30,24 @@ class SingleCoin:
 
         result = count(outcomes, [1, 0])
 
-        print(result)
+        # calcaulate
+        probability = result[1] / self.__total_repeate * 100
+        difference = abs(probability - 50)
+        mean_outcomes = mean(outcomes)
+        variance_outcomes = var(outcomes)
+        std_outcomes = std(outcomes)
+        median_outcomes = median(outcomes)
 
-        print(result[1] / self.__total_repeate * 100)
+        # show the result
+        show_result(
+            "Single Coin",
+            self.Coin(self.__outcome),
+            self.__total_repeate,
+            probability,
+            50,
+            difference,
+            mean_outcomes,
+            median_outcomes,
+            variance_outcomes,
+            std_outcomes,
+        )
