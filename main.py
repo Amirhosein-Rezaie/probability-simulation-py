@@ -35,12 +35,11 @@ def list_tests() -> int:
 def list_sub_test(test_number: int) -> int:
     "function that show the list on sub_tests of tests and select one of them."
 
-    len_sub_tests = {1: 2, 2: 4, 3: 4, 4: 4, 5: 1}
+    len_sub_tests = {1: 1, 2: 4, 3: 4, 4: 4, 5: 1}
     sub_tests = {
         1: {
             "features": [
-                "(1) Probability of Heads",
-                "(2) Probability of Tails",
+                "(1) Probability of (a outcome of single coin)",
             ]
         },
         2: {
@@ -99,11 +98,14 @@ def perform(test: int, sub_test: int) -> int:
     "run the function of the event or choice the user"
 
     # import modules of functions
-    pass
+    from coins.features import SingleCoin
+
+    # make instance of classes
+    single_coin = SingleCoin()
 
     # list of functions
     funcs = {
-        1: {1: None, 2: None},
+        1: {1: single_coin.calculate_probability},
         2: {1: None, 2: None, 3: None, 4: None},
         3: {1: None, 2: None, 3: None, 4: None},
         4: {1: None, 2: None, 3: None, 4: None},
