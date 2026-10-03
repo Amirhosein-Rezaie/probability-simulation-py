@@ -1,5 +1,6 @@
 from subprocess import run
 from msvcrt import getwch
+from enum import Enum
 
 
 # run a commant in terminal
@@ -43,3 +44,33 @@ def total_repeat(event: str) -> int:
             print("Please enter total repeat as a number ... \n")
 
     return total
+
+
+# show the outcomes of a thing
+def select_outcome(outcomes: Enum, thing: str):
+    "show and select outcomes of a thing"
+
+    print(f"Select outcomes of {thing} ... ")
+
+    # variables
+    values = []
+
+    for outcome in outcomes:
+        print(f"({outcome.name}) {outcome.value}")
+        values.append(outcome.value)
+
+    # select one of them
+    print(
+        f"Enter the number of outcome [{values[0]},{values[-1]}]: ",
+        end="",
+        flush=True,
+    )
+    while True:
+        try:
+            char = int(getwch())
+
+            if char in values:
+                print(char)
+                return char
+        except:
+            pass
