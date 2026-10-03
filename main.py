@@ -44,10 +44,10 @@ def list_sub_test(test_number: int) -> int:
         },
         2: {
             "features": [
-                "(1) Exactly One Head",
-                "(2) At Least One Head",
-                "(3) All Heads",
-                "(4) All Tails",
+                "(1) Exactly One (one specific outcome)",
+                "(2) At Least One (one specific outcome)",
+                "(3) All (one specific outcome)",
+                "(4) All (one specific outcome)",
             ]
         },
         3: {
