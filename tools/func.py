@@ -26,3 +26,17 @@ def splitter_line(len_line: int = 60) -> None:
     "show a splitter line"
 
     print("-" * len_line)
+
+
+# get the total repeat of one event
+def total_repeat(event: str) -> int:
+    "get the total repeat of one event"
+
+    total = 0
+    while True:
+        try:
+            total = int(input(f"Enter the total repeate for {event} event : "))
+        except ValueError:
+            print("Please enter total repeat as a number ... \n")
+
+    return total
