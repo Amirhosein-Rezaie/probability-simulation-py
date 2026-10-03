@@ -18,10 +18,6 @@ class SingleCoin:
         self.__outcome = select_outcome(self.Coin, "coin")
         self.__outcome_name = self.Coin(self.__outcome).name
 
-    def show(self):
-        print(self.__outcome_name)
-        print(self.__total_repeate)
-
     def calculate_probability(self):
         outcomes = []
 
@@ -41,7 +37,7 @@ class SingleCoin:
         # show the result
         show_result(
             "Single Coin",
-            self.Coin(self.__outcome),
+            self.__outcome_name,
             self.__total_repeate,
             probability,
             50,
