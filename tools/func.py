@@ -1,6 +1,7 @@
 from subprocess import run
 from msvcrt import getwch
 from enum import Enum
+from unittest import result
 
 
 # run a commant in terminal
@@ -74,3 +75,15 @@ def select_outcome(outcomes: Enum, thing: str):
                 return char
         except:
             pass
+
+
+# count the items in a list of outcomes
+def count(list_outcomes: list, outcome_names: list) -> dict:
+    "count the items in a list of outcomes"
+
+    result = {outcome: 0 for outcome in outcome_names}
+
+    for item in list_outcomes:
+        result[item] = result.get(item, 0) + 1
+
+    return result
