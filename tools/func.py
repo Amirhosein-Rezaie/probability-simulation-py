@@ -39,7 +39,10 @@ def total_repeat(event: str) -> int:
         try:
             total = int(input(f"Enter the total repeate for {event} event : "))
 
-            break
+            if total >= 1:
+                break
+            else:
+                print("Enter Number greater or equal 1 ... !")
 
         except ValueError:
             print("Please enter total repeat as a number ... \n")
