@@ -1,5 +1,6 @@
-from tools.func import total_repeat, select_outcome
+from tools.func import total_repeat, select_outcome, count
 from enum import Enum
+from random import randint
 
 
 class SingleCoin:
@@ -21,4 +22,13 @@ class SingleCoin:
         print(self.__total_repeate)
 
     def calculate_probability(self):
-        pass
+        outcomes = []
+
+        for _ in range(self.__total_repeate):
+            outcomes.append(randint(0, 1))
+
+        result = count(outcomes, [1, 0])
+
+        print(result)
+
+        print(result[1] / self.__total_repeate * 100)
