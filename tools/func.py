@@ -36,6 +36,9 @@ def total_repeat(event: str) -> int:
     while True:
         try:
             total = int(input(f"Enter the total repeate for {event} event : "))
+
+            break
+
         except ValueError:
             print("Please enter total repeat as a number ... \n")
 
