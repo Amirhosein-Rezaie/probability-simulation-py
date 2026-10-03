@@ -98,19 +98,23 @@ def perform(test: int, sub_test: int) -> int:
     "run the function of the event or choice the user"
 
     # import modules of functions
-    from coins.features import SingleCoin
-
-    # make instance of classes
-    single_coin = SingleCoin()
+    from coins.features import SingleCoin, MultipleCoin
 
     # list of functions
     funcs = {
-        1: {1: single_coin.calculate_probability},
-        2: {1: None, 2: None, 3: None, 4: None},
         3: {1: None, 2: None, 3: None, 4: None},
         4: {1: None, 2: None, 3: None, 4: None},
         5: {1: None},
     }
+
+    # make instance of classes and add functions in the dict
+    instance = None
+    if test == 1:
+        instance = SingleCoin()
+        funcs[1] = {1: instance.calculate_probability}
+    elif test == 2:
+        instance = MultipleCoin()
+        funcs[2] = {1: instance.exactly_one, 2: None, 3: None, 4: None}
 
     splitter_line()
 
