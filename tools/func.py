@@ -87,3 +87,44 @@ def count(list_outcomes: list, outcome_names: list) -> dict:
         result[item] = result.get(item, 0) + 1
 
     return result
+
+
+# show result of a test in specific format
+def show_result(
+    title,
+    selected_outcome,
+    total_experiments,
+    experimental_probability,
+    theoretical_probability,
+    difference,
+    mean,
+    median,
+    variance,
+    standard_deviation,
+):
+    "show result of a test in specific format"
+
+    # show
+    print(f"========== {title} ==========" + "\n")
+
+    print(f"{'selected_outcome':<25}: {selected_outcome:>10}" + "\n")
+
+    print(f"{'total_experiments':<25}: {total_experiments:>10}" + "\n")
+
+    print(
+        f"{'experimental_probability':<25}: {experimental_probability:>10.2f}%" + "\n"
+    )
+
+    print(f"{'theoretical_probability':<25}: {theoretical_probability:>10.2f}%" + "\n")
+
+    print(f"{'difference':<25}: {difference:>10.2f}%" + "\n")
+
+    print(f"----- Statistical Measures -----" + "\n")
+
+    print(f"{'mean':<25}: {mean:>10.2f}" + "\n")
+
+    print(f"{'median':<25}: {median:>10.2f}" + "\n")
+
+    print(f"{'variance':<25}: {variance:>10.2f}" + "\n")
+
+    print(f"{'standard_deviation':<25}: {standard_deviation:>10.2f}" + "\n")
