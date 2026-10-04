@@ -146,3 +146,34 @@ class MultipleCoin:
             var(result),
             std(result),
         )
+
+    def all_specific_outcome(self):
+        "Calculate the probability of getting a specific outcome all in each experiment"
+
+        # gets the outcomes
+        tests = self.__get_tests(self.__total_repeat, self.__number_coin)
+
+        # get numbers of tests that have at least one specific outcome
+        count_test = sum(
+            test.count(self.__outcome) == self.__number_coin for test in tests
+        )
+
+        # check which test in tests have exactly one specific outcome
+        result = [test.count(self.__outcome) == self.__number_coin for test in tests]
+        result = self.__replace_in_list(result)
+
+        # calculate and show the result
+        theory = (0.5**self.__number_coin) * 100
+        probability = count_test / self.__total_repeat * 100
+        show_result(
+            f"Multiple Coin Toss (All {self.__outcome_name})",
+            self.__outcome_name,
+            self.__total_repeat,
+            probability,
+            theory,
+            abs(probability - theory),
+            mean(result),
+            median(result),
+            var(result),
+            std(result),
+        )
