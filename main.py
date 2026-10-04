@@ -114,7 +114,7 @@ def perform(test: int, sub_test: int) -> int:
         funcs[1] = {1: instance.calculate_probability}
     elif test == 2:
         instance = MultipleCoin()
-        funcs[2] = {1: instance.exactly_one, 2: None, 3: None, 4: None}
+        funcs[2] = {1: instance.exactly_one, 2: instance.least_one, 3: None, 4: None}
 
     splitter_line()
 
