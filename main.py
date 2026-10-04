@@ -35,7 +35,7 @@ def list_tests() -> int:
 def list_sub_test(test_number: int) -> int:
     "function that show the list on sub_tests of tests and select one of them."
 
-    len_sub_tests = {1: 1, 2: 4, 3: 4, 4: 4, 5: 1}
+    len_sub_tests = {1: 1, 2: 3, 3: 4, 4: 4, 5: 1}
     sub_tests = {
         1: {
             "features": [
@@ -113,7 +113,11 @@ def perform(test: int, sub_test: int) -> int:
         funcs[1] = {1: instance.calculate_probability}
     elif test == 2:
         instance = MultipleCoin()
-        funcs[2] = {1: instance.exactly_one, 2: instance.least_one, 3: None}
+        funcs[2] = {
+            1: instance.exactly_one,
+            2: instance.least_one,
+            3: instance.all_specific_outcome,
+        }
 
     splitter_line()
 
