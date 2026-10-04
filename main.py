@@ -47,7 +47,6 @@ def list_sub_test(test_number: int) -> int:
                 "(1) Exactly One (one specific outcome)",
                 "(2) At Least One (one specific outcome)",
                 "(3) All (one specific outcome)",
-                "(4) All (one specific outcome)",
             ]
         },
         3: {
@@ -114,7 +113,7 @@ def perform(test: int, sub_test: int) -> int:
         funcs[1] = {1: instance.calculate_probability}
     elif test == 2:
         instance = MultipleCoin()
-        funcs[2] = {1: instance.exactly_one, 2: instance.least_one, 3: None, 4: None}
+        funcs[2] = {1: instance.exactly_one, 2: instance.least_one, 3: None}
 
     splitter_line()
 
