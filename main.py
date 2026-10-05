@@ -35,7 +35,7 @@ def list_tests() -> int:
 def list_sub_test(test_number: int) -> int:
     "function that show the list on sub_tests of tests and select one of them."
 
-    len_sub_tests = {1: 1, 2: 3, 3: 4, 4: 4, 5: 1}
+    len_sub_tests = {1: 1, 2: 3, 3: 3, 4: 4, 5: 1}
     sub_tests = {
         1: {
             "features": [
@@ -52,9 +52,8 @@ def list_sub_test(test_number: int) -> int:
         3: {
             "features": [
                 "(1) Specific Number",
-                "(2) Even Number",
-                "(3) Odd Number",
-                "(4) Number Greater Than 4",
+                "(2) Even or Odd Number",
+                "(3) Number Greater Than (a number)",
             ]
         },
         4: {
@@ -120,7 +119,12 @@ def perform(test: int, sub_test: int) -> int:
         }
     elif test == 3:
         instance = Dice()
-        funcs[3] = {1: instance.specific_number, 2: None, 3: None, 4: None}
+        funcs[3] = {
+            1: instance.specific_number,
+            2: instance.even_number,
+            3: None,
+            4: None,
+        }
 
     splitter_line()
 
