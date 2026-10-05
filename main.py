@@ -53,7 +53,7 @@ def list_sub_test(test_number: int) -> int:
             "features": [
                 "(1) Specific Number",
                 "(2) Even or Odd Number",
-                "(3) Number Greater Than (a number)",
+                "(3) Greater Than (a number)",
             ]
         },
         4: {
@@ -122,8 +122,7 @@ def perform(test: int, sub_test: int) -> int:
         funcs[3] = {
             1: instance.specific_number,
             2: instance.even_number,
-            3: None,
-            4: None,
+            3: instance.greater_than,
         }
 
     splitter_line()
