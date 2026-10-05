@@ -1,4 +1,5 @@
 from enum import Enum
+from msvcrt import getwch
 from tools.func import (
     select_outcome,
     show_result,
@@ -35,7 +36,7 @@ class Dice:
     def specific_number(self):
         "Calculate posibability of a specific face of dice."
 
-        if self.__selected_face not in [_ for _ in range(6)]:
+        if self.__selected_face not in [_ for _ in range(1, 6 + 1)]:
             print("Invalid selected face for specific number test ... ")
             return 0
 
@@ -58,7 +59,7 @@ class Dice:
         )
 
     def even_number(self):
-        "Calculate posibability of even number in many to dice."
+        "Calculate posibability of even or odd number in many to dice."
 
         if self.__selected_face not in [_ for _ in range(7, 8 + 1)]:
             print("Invalid selected face for even or odd test ... ")
@@ -80,6 +81,60 @@ class Dice:
 
         show_result(
             "Even or Odd Face (Number)",
+            self.__face_name,
+            self.__total,
+            extperimental,
+            theoretical,
+            abs(extperimental - theoretical),
+            mean(outcomes),
+            median(outcomes),
+            var(outcomes),
+            std(outcomes),
+        )
+
+    def greater_than(self):
+        "Calculate posibability of greater that an specific number or face."
+
+        if self.__selected_face not in [_ for _ in range(1, 6 + 1)]:
+            print("Invalid selected face for greater than a number test ... ")
+            return 0
+
+        # want greater than or greater that equeal
+        flag_gte = False
+        print("Do you to calculate with n >= o ? (y:n) ", flush=True, end="")
+        while True:
+            char = getwch()
+            if char in ["y", "n"]:
+                print(char)
+                flag_gte = True if char == "y" else False
+                break
+
+        # calculate
+        outcomes = [randint(1, 6) for _ in range(self.__total)]
+
+        extperimental = theoretical = 0
+
+        if flag_gte:
+            extperimental = (
+                len([n for n in outcomes if n >= self.__selected_face])
+                / len(outcomes)
+                * 100
+            )
+            theoretical = (
+                len([_ for _ in range(1, 6 + 1) if _ >= self.__selected_face]) / 6 * 100
+            )
+        else:
+            extperimental = (
+                len([n for n in outcomes if n >= self.__selected_face])
+                / len(outcomes)
+                * 100
+            )
+            theoretical = (
+                len([_ for _ in range(1, 6 + 1) if _ >= self.__selected_face]) / 6 * 100
+            )
+
+        show_result(
+            f"Greater Than or Equal To ({self.__selected_face})",
             self.__face_name,
             self.__total,
             extperimental,
