@@ -98,10 +98,10 @@ def perform(test: int, sub_test: int) -> int:
 
     # import modules of functions
     from coins.features import SingleCoin, MultipleCoin
+    from dice.features import Dice
 
     # list of functions
     funcs = {
-        3: {1: None, 2: None, 3: None, 4: None},
         4: {1: None, 2: None, 3: None, 4: None},
         5: {1: None},
     }
@@ -118,6 +118,9 @@ def perform(test: int, sub_test: int) -> int:
             2: instance.least_one,
             3: instance.all_specific_outcome,
         }
+    elif test == 3:
+        instance = Dice()
+        funcs[3] = {1: instance.specific_number, 2: None, 3: None, 4: None}
 
     splitter_line()
 
