@@ -23,32 +23,32 @@ class Dice:
         Even_numbers = 8
 
     # properties
-    __selected_face = None
-    __total = 0
-    __face_name = ""
+    selected_face = None
+    total = 0
+    face_name = ""
 
     # methods
     def __init__(self):
-        self.__selected_face = select_outcome(self.DiceOutcomes, "Dice")
-        self.__total = total_repeat("Dice")
-        self.__face_name = self.DiceOutcomes(self.__selected_face).name
+        self.selected_face = select_outcome(self.DiceOutcomes, "Dice")
+        self.total = total_repeat("Dice")
+        self.face_name = self.DiceOutcomes(self.selected_face).name
 
     def specific_number(self):
         "Calculate posibability of a specific face of dice."
 
-        if self.__selected_face not in [_ for _ in range(1, 6 + 1)]:
+        if self.selected_face not in [_ for _ in range(1, 6 + 1)]:
             print("Invalid selected face for specific number test ... ")
             return 0
 
-        outcomes = [randint(1, 6) for _ in range(self.__total)]
+        outcomes = [randint(1, 6) for _ in range(self.total)]
 
-        probability = outcomes.count(self.__selected_face) / self.__total * 100
+        probability = outcomes.count(self.selected_face) / self.total * 100
         theory = 1 / 6 * 100
 
         show_result(
             "Specific face (number)",
-            self.__face_name,
-            self.__total,
+            self.face_name,
+            self.total,
             probability,
             theory,
             abs(probability - theory),
@@ -61,14 +61,14 @@ class Dice:
     def even_number(self):
         "Calculate posibability of even or odd number in many to dice."
 
-        if self.__selected_face not in [_ for _ in range(7, 8 + 1)]:
+        if self.selected_face not in [_ for _ in range(7, 8 + 1)]:
             print("Invalid selected face for even or odd test ... ")
             return 0
 
-        outcomes = [randint(1, 6) for _ in range(self.__total)]
+        outcomes = [randint(1, 6) for _ in range(self.total)]
 
         extperimental = 0
-        if self.__selected_face == 7:
+        if self.selected_face == 7:
             extperimental = (
                 len([n for n in outcomes if n % 2 != 0]) / len(outcomes) * 100
             )
@@ -81,8 +81,8 @@ class Dice:
 
         show_result(
             "Even or Odd Face (Number)",
-            self.__face_name,
-            self.__total,
+            self.face_name,
+            self.total,
             extperimental,
             theoretical,
             abs(extperimental - theoretical),
@@ -95,7 +95,7 @@ class Dice:
     def greater_than(self):
         "Calculate posibability of greater that an specific number or face."
 
-        if self.__selected_face not in [_ for _ in range(1, 6 + 1)]:
+        if self.selected_face not in [_ for _ in range(1, 6 + 1)]:
             print("Invalid selected face for greater than a number test ... ")
             return 0
 
@@ -110,33 +110,33 @@ class Dice:
                 break
 
         # calculate
-        outcomes = [randint(1, 6) for _ in range(self.__total)]
+        outcomes = [randint(1, 6) for _ in range(self.total)]
 
         extperimental = theoretical = 0
 
         if flag_gte:
             extperimental = (
-                len([n for n in outcomes if n >= self.__selected_face])
+                len([n for n in outcomes if n >= self.selected_face])
                 / len(outcomes)
                 * 100
             )
             theoretical = (
-                len([_ for _ in range(1, 6 + 1) if _ >= self.__selected_face]) / 6 * 100
+                len([_ for _ in range(1, 6 + 1) if _ >= self.selected_face]) / 6 * 100
             )
         else:
             extperimental = (
-                len([n for n in outcomes if n >= self.__selected_face])
+                len([n for n in outcomes if n >= self.selected_face])
                 / len(outcomes)
                 * 100
             )
             theoretical = (
-                len([_ for _ in range(1, 6 + 1) if _ >= self.__selected_face]) / 6 * 100
+                len([_ for _ in range(1, 6 + 1) if _ >= self.selected_face]) / 6 * 100
             )
 
         show_result(
-            f"Greater Than or Equal To ({self.__selected_face})",
-            self.__face_name,
-            self.__total,
+            f"Greater Than or Equal To ({self.selected_face})",
+            self.face_name,
+            self.total,
             extperimental,
             theoretical,
             abs(extperimental - theoretical),
@@ -145,3 +145,25 @@ class Dice:
             var(outcomes),
             std(outcomes),
         )
+
+
+class MultipleDice(Dice):
+    number_dice = 0
+
+    # # functions
+    def __get_number(self) -> int:
+        while True:
+            try:
+                number = int(input("Enter Number of dice : "))
+
+                if number >= 1:
+                    return number
+                else:
+                    print("Enter number greater or equal 1 ... !")
+
+            except ValueError:
+                print("Enter the number for number dice ... !")
+
+    def __init__(self):
+        super().__init__()
+        self.number_dice = self.__get_number()
