@@ -97,7 +97,7 @@ def perform(test: int, sub_test: int) -> int:
 
     # import modules of functions
     from coins.features import SingleCoin, MultipleCoin
-    from dice.features import Dice
+    from dice.features import Dice, MultipleDice
 
     # list of functions
     funcs = {
@@ -123,6 +123,13 @@ def perform(test: int, sub_test: int) -> int:
             1: instance.specific_number,
             2: instance.even_number,
             3: instance.greater_than,
+        }
+    elif test == 4:
+        instance = MultipleDice()
+        funcs[4] = {
+            1: instance.sum_equals,
+            2: None,
+            3: None,
         }
 
     splitter_line()
