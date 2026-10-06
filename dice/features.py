@@ -8,6 +8,7 @@ from tools.func import (
 )
 from random import randint
 from numpy import var, std, mean, median
+from itertools import product
 
 
 class Dice:
@@ -151,6 +152,19 @@ class MultipleDice(Dice):
     number_dice = 0
 
     # # functions
+    def __get_test_number(self) -> int:
+        while True:
+            try:
+                number = int(input("Enter target Number : "))
+
+                if number >= 1:
+                    return number
+                else:
+                    print("Enter number greater or equal 1 ... !")
+
+            except ValueError:
+                print("Invalid input ... !")
+
     def __get_number(self) -> int:
         while True:
             try:
@@ -167,3 +181,46 @@ class MultipleDice(Dice):
     def __init__(self):
         super().__init__()
         self.number_dice = self.__get_number()
+
+    def sum_equals(self):
+        "calculate the posibability of sum of the dices equals to a number"
+
+        # simulation the test
+        outcomes = []
+
+        for i in range(self.total):
+            outcomes.append([randint(1, 6) for j in range(self.number_dice)])
+
+        # cal the sun of outcomes
+        sum_outcomes = [sum(test) for test in outcomes]
+
+        target_number = self.__get_test_number()
+
+        # filter the outcomes
+        count_equals = len([s for s in sum_outcomes if s == target_number])
+
+        # # calculate the posibability
+        extperimental = count_equals / len(sum_outcomes) * 100
+
+        # theory
+        true_outcomes = list(product(range(1, 7), repeat=self.number_dice))
+
+        count_theoretical = len(
+            [sum(outcome) for outcome in true_outcomes if sum(outcome) == target_number]
+        )
+
+        theoretical = count_theoretical / (6**self.number_dice) * 100
+
+        # show result
+        show_result(
+            f"Sum multiple Dice equals to ({target_number})",
+            "none",
+            self.total,
+            extperimental,
+            theoretical,
+            abs(extperimental - theoretical),
+            mean(sum_outcomes),
+            median(sum_outcomes),
+            var(sum_outcomes),
+            std(sum_outcomes),
+        )
