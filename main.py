@@ -98,7 +98,6 @@ def perform(test: int, sub_test: int) -> int:
 
     # list of functions
     funcs = {
-        4: {1: None, 2: None, 3: None, 4: None},
         5: {1: None},
     }
 
