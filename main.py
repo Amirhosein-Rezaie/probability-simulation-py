@@ -35,7 +35,7 @@ def list_tests() -> int:
 def list_sub_test(test_number: int) -> int:
     "function that show the list on sub_tests of tests and select one of them."
 
-    len_sub_tests = {1: 1, 2: 3, 3: 3, 4: 4, 5: 1}
+    len_sub_tests = {1: 1, 2: 3, 3: 3, 4: 1, 5: 1}
     sub_tests = {
         1: {
             "features": [
@@ -58,10 +58,7 @@ def list_sub_test(test_number: int) -> int:
         },
         4: {
             "features": [
-                "(1) Sum Equals to (a number)",
-                "(2) Sum Is Even",
-                "(3) Sum Is Odd",
-                "(4) Sum Is Greater Than (a number)",
+                "(1) Sum Equals, even, odd (a number)",
             ]
         },
         5: {"features": ["(1) Monte Carlo Pi Estimation"]},
@@ -127,9 +124,7 @@ def perform(test: int, sub_test: int) -> int:
     elif test == 4:
         instance = MultipleDice()
         funcs[4] = {
-            1: instance.sum_equals,
-            2: None,
-            3: None,
+            1: instance.sum_equals_even_odd,
         }
 
     splitter_line()
