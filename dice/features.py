@@ -29,10 +29,11 @@ class Dice:
     face_name = ""
 
     # methods
-    def __init__(self):
-        self.selected_face = select_outcome(self.DiceOutcomes, "Dice")
+    def __init__(self, select_outcome: bool = True):
+        if select_outcome == True:
+            self.selected_face = select_outcome(self.DiceOutcomes, "Dice")
+            self.face_name = self.DiceOutcomes(self.selected_face).name
         self.total = total_repeat("Dice")
-        self.face_name = self.DiceOutcomes(self.selected_face).name
 
     def specific_number(self):
         "Calculate posibability of a specific face of dice."
@@ -179,46 +180,93 @@ class MultipleDice(Dice):
                 print("Enter the number for number dice ... !")
 
     def __init__(self):
-        super().__init__()
+        super().__init__(select_outcome=False)
         self.number_dice = self.__get_number()
 
-    def sum_equals(self):
-        "calculate the posibability of sum of the dices equals to a number"
+    def sum_equals_even_odd(self):
+        "Calculate the probability of a sum of dice."
 
-        # simulation the test
+        # Simulation
         outcomes = []
 
         for i in range(self.total):
             outcomes.append([randint(1, 6) for j in range(self.number_dice)])
 
-        # cal the sun of outcomes
+        # Calculate the sum of each experiment
         sum_outcomes = [sum(test) for test in outcomes]
 
-        target_number = self.__get_test_number()
+        target_number = 0
 
-        # filter the outcomes
-        count_equals = len([s for s in sum_outcomes if s == target_number])
+        # Get the filter that user wants
+        filters = {
+            1: "Equals",
+            2: "Even",
+            3: "Odd",
+            4: "Greater Than",
+        }
 
-        # # calculate the posibability
-        extperimental = count_equals / len(sum_outcomes) * 100
+        for f, name in filters.items():
+            print(f"({f}) {name}")
 
-        # theory
-        true_outcomes = list(product(range(1, 7), repeat=self.number_dice))
+        selected_filter = 0
 
-        count_theoretical = len(
-            [sum(outcome) for outcome in true_outcomes if sum(outcome) == target_number]
-        )
+        while True:
+            try:
+                selected_filter = int(input("Select filter : "))
+
+                if selected_filter in filters:
+                    break
+
+            except ValueError:
+                pass
+
+        # Calculate experimental and theoretical probability
+        true_outcomes = product(range(1, 7), repeat=self.number_dice)
+
+        if selected_filter == 1:
+            # Equals
+            target_number = self.__get_test_number()
+
+            count_experimental = len([s for s in sum_outcomes if s == target_number])
+
+            count_theoretical = sum(
+                sum(outcome) == target_number for outcome in true_outcomes
+            )
+
+        elif selected_filter == 2:
+            # Even
+            count_experimental = len([s for s in sum_outcomes if s % 2 == 0])
+
+            count_theoretical = sum(sum(outcome) % 2 == 0 for outcome in true_outcomes)
+
+        elif selected_filter == 3:
+            # Odd
+            count_experimental = len([s for s in sum_outcomes if s % 2 != 0])
+
+            count_theoretical = sum(sum(outcome) % 2 != 0 for outcome in true_outcomes)
+
+        elif selected_filter == 4:
+            # Greater Than
+            target_number = self.__get_test_number()
+
+            count_experimental = len([s for s in sum_outcomes if s > target_number])
+
+            count_theoretical = sum(
+                sum(outcome) > target_number for outcome in true_outcomes
+            )
+
+        experimental = count_experimental / self.total * 100
 
         theoretical = count_theoretical / (6**self.number_dice) * 100
 
-        # show result
+        # Show result
         show_result(
-            f"Sum multiple Dice equals to ({target_number})",
+            f"Sum multiple Dice {filters[selected_filter]} ({target_number})",
             "none",
             self.total,
-            extperimental,
+            experimental,
             theoretical,
-            abs(extperimental - theoretical),
+            abs(experimental - theoretical),
             mean(sum_outcomes),
             median(sum_outcomes),
             var(sum_outcomes),
