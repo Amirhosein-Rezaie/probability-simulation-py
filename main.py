@@ -95,11 +95,10 @@ def perform(test: int, sub_test: int) -> int:
     # import modules of functions
     from coins.features import SingleCoin, MultipleCoin
     from dice.features import Dice, MultipleDice
+    from monte.features import carlo
 
     # list of functions
-    funcs = {
-        5: {1: None},
-    }
+    funcs = {}
 
     # make instance of classes and add functions in the dict
     instance = None
@@ -124,6 +123,11 @@ def perform(test: int, sub_test: int) -> int:
         instance = MultipleDice()
         funcs[4] = {
             1: instance.sum_equals_even_odd,
+        }
+    elif test == 5:
+        instance = carlo()
+        funcs[5] = {
+            1: instance.pi_estimate,
         }
 
     splitter_line()
